@@ -11,7 +11,7 @@ compiler:
 
 before_install:
   - "brew update 2>&1 > /tmp/brew-update.txt || (cat /tmp/brew-update.txt && false)"
-  - "cd /tmp && rm -rf /tmp/brew-update.txt"
+  - "rm -rf /tmp/brew-update.txt"
 
 install:
   - brew install
