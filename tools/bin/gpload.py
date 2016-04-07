@@ -2279,7 +2279,7 @@ class gpload:
 
 
     def count_errors(self):
-        notice_processor(self)
+        #notice_processor(self)
         if self.error_table and not self.options.D and not self.reuse_tables:
             # make sure we only get errors for our own instance
             queryStr = 'select count(*) from ' + self.error_table + " WHERE relname = '%s'" % self.extTableName
