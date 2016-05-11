@@ -10,6 +10,7 @@ include $(top_builddir)/src/Makefile.global
 
 all:
 #	$(MAKE) -C doc all
+	$(MAKE) -C depends/thirdparty/googletest all
 	$(MAKE) -C depends/libhdfs3 all
 	$(MAKE) -C depends/libyarn all
 	$(MAKE) -C src all
@@ -24,6 +25,7 @@ all:
 
 install: 
 #	$(MAKE) -C doc $@
+	$(MAKE) -C depends/thirdparty/googletest install
 	$(MAKE) -C depends/libhdfs3 $@
 	$(MAKE) -C depends/libyarn $@
 	$(MAKE) -C src $@
@@ -63,8 +65,9 @@ feature_test_clean:
 clean:
 #	$(MAKE) -C doc $@
 	$(MAKE) -C contrib $@
-	$(MAKE) -C depends/libhdfs3 $@
-	$(MAKE) -C depends/libyarn $@
+	-$(MAKE) -C depends/thirdparty/googletest $@
+	-$(MAKE) -C depends/libhdfs3 $@
+	-$(MAKE) -C depends/libyarn $@
 	$(MAKE) -C src $@
 	$(MAKE) -C config $@
 	$(MAKE) -C contrib/formatter_fixedwidth $@
@@ -73,7 +76,7 @@ clean:
 	$(MAKE) -C contrib/gp_cancel_query $@
 	$(MAKE) -C contrib/hawq-hadoop $@
 	$(MAKE) -C tools $@
-	$(MAKE) -C src feature_test clean
+	-$(MAKE) -C src feature_test clean
 # Garbage from autoconf:
 	@rm -rf autom4te.cache/
 
@@ -82,6 +85,7 @@ clean:
 distclean maintainer-clean:
 #	-$(MAKE) -C doc $@
 	-$(MAKE) -C contrib $@
+	-$(MAKE) -C depends/thirdparty/googletest $@
 	-$(MAKE) -C depends/libhdfs3 $@
 	-$(MAKE) -C depends/libyarn $@
 	-$(MAKE) -C config $@

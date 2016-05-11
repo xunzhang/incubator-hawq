@@ -61,6 +61,8 @@ before_script:
 
 script:
   - make -j2
+  - make feature_test
+  - make feature_test_clean
 
 branches:
   except:
