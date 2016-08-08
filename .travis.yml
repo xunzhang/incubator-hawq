@@ -34,9 +34,11 @@ before_script:
   - ./configure
 
 script:
-  - make -j$(sysctl -n hw.ncpu)
-  - make feature-test
-  - make feature-test-clean
+  - wget https://scan.coverity.com/download/linux64 --post-data "token=VwyU1SmtMuuwyDH5b1qLtA&project=hawqcore%2Fincubator-hawq" -O coverity_tool.tgz
+  - tar zxvf coverity_tool.tgz
+  - $PWD/cov-analysis-linux64-*/bin/cov-build --dir cov-int make -j$(sysctl -n hw.ncpu)
+  - tar czvf cov.tgz cov-int
+  - "curl --form token=VwyU1SmtMuuwyDH5b1qLtA --form email=dev@hawq.incubator.apache.org --form file=@cov.tgz --form version=2.0.0.0 --form description=HadoopWithSql https://scan.coverity.com/builds?project=hawqcore%2Fincubator-hawq"
 
 branches:
   except:
